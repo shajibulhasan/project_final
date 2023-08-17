@@ -4,15 +4,20 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
-?>
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
+
+?> 
 <?php
-    $s = "select at.id as id, at.semester as semester, at.section as section, d.name as name, c.course_title as course, s.session as session, u.name as tname from assign_teacher as at INNER JOIN department as d On at.dept_id=d.id INNER JOIN course as c ON at.course=c.id INNER JOIN session as s ON at.session_id=s.id INNER JOIN users as u ON at.teacher_id=u.id";
+    $s = "select at.id as id, at.semester as semester, at.section as section, d.name as name, c.course_title as course, s.session as session, u.name as tname from assign_teacher as at INNER JOIN department as d On at.dept_id=d.id INNER JOIN course as c ON at.course=c.id INNER JOIN session as s ON at.session_id=s.id INNER JOIN users as u ON at.teacher_id=u.id where at.dept_id=$dept";
     $q = mysqli_query($conn, $s);
 ?>
 <!DOCTYPE html>
@@ -116,9 +121,10 @@
                 </thead>
                 <tbody>
                     <?php
+                    $n=1;
                         while($r = mysqli_fetch_array($q)) { ?>
                             <tr>
-                                <td><?php echo $r['id']?></td>
+                                <td><?php echo $n++; ?></td>
                                 <td><?php echo $r['tname']?></td>
                                 <td><?php echo $r['name']?></td>
                                 <td><?php echo $r['course']?></td>

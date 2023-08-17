@@ -42,17 +42,22 @@ CREATE TABLE batch(
 7. section table
 CREATE TABLE section(
     id int PRIMARY KEY AUTO_INCREMENT,
-    section varchar(20)
+    section varchar(20),
+    session_id int,
+    dept_id int,
+    semester varchar(20),
+    FOREIGN KEY (session_id) REFERENCES session(id),
+    FOREIGN KEY (dept_id) REFERENCES department(id)
     );
 8. offer_course table
 CREATE TABLE offer_course(
     id int PRIMARY KEY AUTO_INCREMENT,
-    semester varchar(50),
+    semester varchar(20),
     dept_id int,
-    batch_id int,
+    session_id int,
     course_id int,
     FOREIGN KEY (dept_id) REFERENCES department(id),
-    FOREIGN KEY (batch_id) REFERENCES batch(id),
+    FOREIGN KEY (session_id) REFERENCES session(id),
     FOREIGN KEY (course_id) REFERENCES course(id)
     );
 9. assign_teacher table
