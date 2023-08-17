@@ -1,0 +1,80 @@
+1. Database Create
+CREATE DATABASE project;
+
+2. users table
+CREATE TABLE users(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(70),
+    email varchar(70),
+    password varchar(100),
+    role varchar(60),
+    dept_id int,
+    FOREIGN KEY(dept_id) REFERENCES department(id),
+    status boolean default false
+    );
+
+3. deparment table
+CREATE TABLE department(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(70),
+    short_name varchar(30),
+    established date
+    );
+4. course table
+CREATE TABLE course(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    course_title varchar(100),
+    course_code varchar(20),
+    credit float
+    );
+5. session table
+CREATE TABLE session(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    session varchar(70)
+    );
+6. batch table
+CREATE TABLE batch(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    batch int,
+    dept_id int,
+    FOREIGN KEY(dept_id) REFERENCES department(id)
+    );
+7. section table
+CREATE TABLE section(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    section varchar(20)
+    );
+8. offer_course table
+CREATE TABLE offer_course(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    semester varchar(50),
+    dept_id int,
+    batch_id int,
+    course_id int,
+    FOREIGN KEY (dept_id) REFERENCES department(id),
+    FOREIGN KEY (batch_id) REFERENCES batch(id),
+    FOREIGN KEY (course_id) REFERENCES course(id)
+    );
+9. assign_teacher table
+CREATE TABLE assign_teacher(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    teacher_id int,
+    dept_id int,
+    course int,
+    session_id int,
+    semester varchar(30),
+    section varchar(20),  
+    FOREIGN KEY (teacher_id) REFERENCES users(id),
+    FOREIGN KEY (dept_id) REFERENCES department(id),
+    FOREIGN KEY (session_id) REFERENCES session(id),
+    FOREIGN KEY (course) REFERENCES course(id)
+    );
+10. admin table
+CREATE TABLE admin(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(90),
+    email varchar(80),
+    password varchar(200),
+    dept_id int,
+    role varchar(70)
+    );
