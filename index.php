@@ -68,7 +68,7 @@
                 if($row['role']=='Teacher'){
                     header('Location: dashboard_teach.php');
                 }
-                else{
+                elseif($row['role']=='Student'){
                     header('Location: dashboard.php');
                 }    
             }
@@ -76,6 +76,8 @@
                 echo 'Not Approved';
             }
         }
-
+        else{
+            echo 'Not registered';
+        }
     }
 ?>

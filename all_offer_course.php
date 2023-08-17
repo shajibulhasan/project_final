@@ -4,17 +4,27 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
 ?>
 <?php
-    $s = "select oc.id as id, c.course_title as course, oc.semester as semester, d.name as name from offer_course as oc INNER JOIN department as d ON oc.dept_id=d.id INNER JOIN course as c ON oc.course_id=c.id";
+    $s = "Select oc.id as id, se.session as session, c.course_title as course, oc.semester from offer_course as oc INNER JOIN session as se ON oc.session_id=se.id INNER JOIN course as c ON  oc.course_id=c.id  where oc.dept_id=$dept";
     $q = mysqli_query($conn, $s);
 ?>
+<?php
+    $s2 = "Select * from department where id=$dept";
+    $q2 = mysqli_query($conn, $s2);
+    $r2 = mysqli_fetch_assoc($q2);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,18 +117,22 @@
                 <thead>
                     <th>Id</th>
                     <th>Course</th>
+                    <th>Session</th>
                     <th>Semester</th>
                     <th>Department</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
                     <?php
-                        while($r = mysqli_fetch_array($q)){ ?>
+                        $p=1;
+                        while($r = mysqli_fetch_array($q)){ 
+                            ?>
                             <tr>
-                                <td><?php echo $r['id'] ?></td>
+                                <td><?php echo $p++ ?></td>
                                 <td><?php echo $r['course'] ?></td>
+                                <td><?php echo $r['session'] ?></td>
                                 <td><?php echo $r['semester'] ?></td>
-                                <td><?php echo $r['name'] ?></td>
+                                <td><?php echo $r2['name'] ?></td>
                                 <td>
                                     <a class="btn btn-secondary" href="edit_offer_course.php?off_id=<?php echo $r['id'] ?>">Update</a>
                                     <a class="btn btn-danger" data-toggle="modal" data-target="#myModal<?php echo $r['id'] ?>" >Delete</a>

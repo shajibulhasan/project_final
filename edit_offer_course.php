@@ -2,13 +2,17 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
-?> 
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
+?>
 <?php 
     $off_id = $_REQUEST['off_id'];
     $s = "select * from offer_course where id=$off_id";
@@ -17,7 +21,7 @@
 ?>
 
 <?php 
-    $s1 = "Select * from department";
+    $s1 = "Select * from session";
     $q1 = mysqli_query($conn, $s1);
 ?>
 
@@ -115,12 +119,12 @@
         <h2>Edit Offer Course</h2>
         <form action="" method="post">
             <div class="form-group">
-                <label for="">Department</label>
-                <select name="department" id="" class="form-control">
-                    <option value="">Select Department</option>
+                <label for="">Session</label>
+                <select name="session" id="" class="form-control">
+                    <option value="">Select Session</option>
                     <?php 
-                        while($row = mysqli_fetch_assoc($q1)){ ?>
-                            <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                        while($row1 = mysqli_fetch_assoc($q1)){ ?>
+                            <option value="<?php echo $row1['id'] ?>"><?php echo $row1['session'] ?></option>
                         <?php  }
                     ?>
                 </select>
@@ -139,18 +143,7 @@
                     <option value="8th">8th</option>                
                 </select>
             </div>
-            <div class="form-group">
-                <label for="">Course</label>
-                <select name="course" id="" class="form-control">
-                    <option value="">Select Course</option>
-                    <?php 
-                        while($row2 = mysqli_fetch_assoc($q2)){ ?>
-                            <option value="<?php echo $row2['id'] ?>"><?php echo $row2['course_title'] ?></option>
-                        <?php  }
-                    ?>
-                </select>
-            </div>
-            <div>
+            <div class="mt-2">
                 <button type="submit" class="btn btn-primary" name="submitBtn">Update</button>
             </div>
         </form>
@@ -160,10 +153,9 @@
 </html>
 <?php 
     if(isset($_POST['submitBtn'])){
-        $dept = $_POST['department'];
-        $course = $_POST['course'];
+        $session = $_POST['session'];
         $semester = $_POST['semester'];
-        $str = "update offer_course set  semester='".$semester."', dept_id='".$dept."', course_id='".$course."' where id= $off_id";
+        $str = "update offer_course set  semester='".$semester."', session_id='".$session."' where id= $off_id";
         if(mysqli_query($conn, $str)){
            header('Location: all_offer_course.php');
         }

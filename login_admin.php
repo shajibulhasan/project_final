@@ -54,7 +54,7 @@
 <?php 
     if(isset($_POST['btnLogin'])){
         $email = $_POST['email'];
-        $pass = ($_POST['password']); 
+        $pass = $_POST['password']; 
         $password = md5($_POST['password']); 
         $s = "Select * from admin where email='".$email."' 
               AND password='".$password."' or password='".$pass."'";   
@@ -69,12 +69,12 @@
             if($row['role']=='Super Admin'){
                 header('Location: dashboard_super.php');
             }
-            else{
+            elseif($row['role']=='Department Admin'){
                 header('Location: dashboard_dept.php');
             }
             }
         else{
-            echo 'Not Approved';
+            echo 'Your are not admin';
         }
     }
 ?>
