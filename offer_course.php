@@ -2,15 +2,19 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
-?> 
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
+?>
 <?php 
-    $s1 = "Select * from department";
+    $s1 = "Select * from session";
     $q1 = mysqli_query($conn, $s1);
 ?>
 <?php 
@@ -107,12 +111,12 @@
             <h2>Offer Course</h2>
             <form action="" method="post">
             <div class="form-group">
-                <label for="">Department</label>
-                <select name="department" id="" class="form-control">
-                    <option value="">Select Department</option>
+                <label for="">Session</label>
+                <select name="session" id="" class="form-control">
+                    <option value="">Select Session</option>
                     <?php 
                         while($row1 = mysqli_fetch_assoc($q1)){ ?>
-                            <option value="<?php echo $row1['id'] ?>"><?php echo $row1['name'] ?></option>
+                            <option value="<?php echo $row1['id'] ?>"><?php echo $row1['session'] ?></option>
                         <?php  }
                     ?>
                 </select>
@@ -131,18 +135,16 @@
                     <option value="8th">8th</option>                
                 </select>
             </div>
-            
-            <div class="form-group">
-                <label for="">Course</label>
-                <select name="course" id="" class="form-control">
-                    <option value="">Select Course</option>
-                    <?php 
-                        while($row4 = mysqli_fetch_assoc($q4)){ ?>
-                            <option value="<?php echo $row4['id'] ?>"><?php echo $row4['course_title'] ?></option>
-                        <?php  }
-                    ?>
-                </select>
-            </div>  
+            <label for="course">Course: </label>
+            <?php 
+                while($row4 = mysqli_fetch_assoc($q4)){ ?>
+            <div class="form-check">
+                <label class="form-check-label" for="check1">
+                    <input type="checkbox" class="form-check-input" name="course[]" value="<?php echo $row4['id'] ?>"><?php echo $row4['course_title'] ?>
+                </label>
+            </div>
+            <?php  }
+                ?>  
             <div>
                 <button type="submit" class="btn btn-primary mt-2" name="submitBtn">Save</button>
             </div>
@@ -153,12 +155,15 @@
 </html>
 <?php 
     if(isset($_POST['submitBtn'])){
-        $dept = $_POST['department'];
+        $session = $_POST['session'];
         $semester = $_POST['semester'];
         $course = $_POST['course'];
-        $str = "INSERT INTO offer_course(semester,dept_id, course_id)
-                VALUES ('".$semester."','".$dept."','".$course."')";
-        if(mysqli_query($conn, $str)){
+        for($i=0;$i<sizeof($course);$i++){
+            $str = "INSERT INTO offer_course(course_id,dept_id, semester, session_id)
+                 VALUES ('".$course[$i]."', '".$dept."', '".$semester."', '".$session."')";
+                 $n = mysqli_query($conn, $str);
+            }
+        if($n){
             echo 'Successfully Inserted';
         }
     }
