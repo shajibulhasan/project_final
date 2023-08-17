@@ -2,13 +2,18 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
-?> 
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
+
+?>
 <?php 
     $section_id = $_REQUEST['sec_id'];
     $s = "select * from section where id=$section_id";
@@ -17,13 +22,8 @@
 ?>
 
 <?php 
-    $s1 = "Select * from department";
+    $s1 = "Select * from session";
     $q1 = mysqli_query($conn, $s1);
-?>
-
-<?php 
-    $s2 = "Select * from batch";
-    $q2 = mysqli_query($conn, $s2);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,27 +115,30 @@
         <h2>Edit Section</h2>
         <form action="" method="post">
             <div class="form-group">
-                <label for="">Department</label>
-                <select name="department" id="" class="form-control">
-                    <option value="">Select Department</option>
+                <label for="">Session</label>
+                <select name="session" id="" class="form-control">
+                    <option value="">Select Session</option>
                     <?php 
-                        while($row = mysqli_fetch_assoc($q1)){ ?>
-                            <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
+                        while($row1 = mysqli_fetch_assoc($q1)){ ?>
+                            <option value="<?php echo $row1['id'] ?>"><?php echo $row1['session'] ?></option>
                         <?php  }
                     ?>
                 </select>
             </div>
             <div class="form-group">
-                <label for="">Batch</label>
-                <select name="batch" id="" class="form-control">
-                    <option value="">Select Batch</option>
-                    <?php 
-                        while($row2 = mysqli_fetch_assoc($q2)){ ?>
-                            <option value="<?php echo $row2['id'] ?>"><?php echo $row2['batch'] ?></option>
-                        <?php  }
-                    ?>
+                <label for="">Semester</label>
+                <select name="semester" id="" class="form-control">
+                <option value="">Select Semester</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>                    
+                    <option value="6th">6th</option>                    
+                    <option value="7th">7th</option>                    
+                    <option value="8th">8th</option>                
                 </select>
-            </div>
+            </div>                   
             <div class="form-group">
                 <label for="">Section</label>
                 <input type="text" value="<?php echo $r['section'] ?>" class="form-control" name="section" id="">
@@ -150,10 +153,10 @@
 </html>
 <?php 
     if(isset($_POST['submitBtn'])){
-        $dept = $_POST['department'];
-        $batch = $_POST['batch'];
+        $session = $_POST['session'];
+        $semester = $_POST['semester'];
         $sectionName = $_POST['section'];
-        $str = "update section set dept_id='".$dept."', batch_id='".$batch."', section='".$sectionName."' where id= $section_id";
+        $str = "update section set session_id='".$session."', semester='".$semester."', section='".$sectionName."' where id= $section_id";
         if(mysqli_query($conn, $str)){
            header('Location: all_section.php');
         }
