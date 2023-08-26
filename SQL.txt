@@ -83,3 +83,15 @@ CREATE TABLE admin(
     dept_id int,
     role varchar(70)
     );
+ 11. project_idea table 
+ CREATE TABLE project_idea(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    gorup_number int,
+    idea varchar(2000),
+    course_id int,
+    session_id int,
+    user_id int,
+    FOREIGN KEY(session_id) REFERENCES session(id),
+    FOREIGN KEY(course_id) REFERENCES course(id),
+     FOREIGN KEY(user_id) REFERENCES users(id)
+    );  

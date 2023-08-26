@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" href="dashboard_dept.php"><img src="img/puc.png" alt="logo" style="width:50px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -29,15 +30,32 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Dasboard</a>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                          Enrollment
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="enroll.php">Create Enrollment</a>
+                            <a class="dropdown-item" href="all_enroll.php">All Enrollment</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                          Project Idea
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="create_project_idea.php">Create Project Idea</a>
+                            <a class="dropdown-item" href="status_project_idea.php">Status Project Idea</a>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="all_enroll.php">All-Enrolment</a>
+                        <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
         </nav>
+
+
         <div class="m-5">
             <h2>Enrollment</h2>
 
@@ -130,6 +148,7 @@
             <?php }
             ?>
         </div>
+</div>
 </body>
 </html>
 <?php 

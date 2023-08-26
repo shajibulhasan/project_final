@@ -28,6 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<div>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" href="dashboard_dept.php"><img src="img/puc.png" alt="logo" style="width:50px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -35,15 +36,31 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Dashboard</a>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                          Enrollment
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="enroll.php">Create Enrollment</a>
+                            <a class="dropdown-item" href="all_enroll.php">All Enrollment</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                          Project Idea
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="create_project_idea.php">Create Project Idea</a>
+                            <a class="dropdown-item" href="status_project_idea.php">Status Project Idea</a>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="all_enroll.php">All-Enrollment</a>
+                        <a class="nav-link" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
         </nav>
+
         <div class="m-5">
             <h2>User name: <?php echo $name ?> </h2>
             <h5>Department: <?php echo $r1['name'] ?> </h5>
@@ -76,8 +93,7 @@
                             <th>Course Name</th>
                             <th>Section</th>
                             <th>Semester</th>
-                            <th>Type</th>
-                            <th>Action</th>                    
+                            <th>Type</th>                                              
                         </thead>
                         <tbody>
                             <?php
@@ -89,31 +105,7 @@
                                         <td><?php echo $r['section']?></td>                                
                                         <td><?php echo $r['semester']?></td>
                                         <td><?php echo $r['types']?></td>
-
-                                        <td>
-                                            <a class="btn btn-danger" data-toggle="modal" data-target="#myModal<?php echo $r['id'] ?>" >Delete</a>
-                                            <div class="modal" id="myModal<?php echo $r['id'] ?>">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Delete Confirmation</h4>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-                                                        
-                                                        <div class="modal-body">
-                                                            Are you sure you want to delete <?php echo $r['name'] ?>
-                                                        </div>
-                                                    
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            <a href="delete_dept.php?dept_id=<?php echo $r['id'] ?>" class="btn btn-danger">Yes</a>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+                                
                                     </tr>
                                 <?php }
                             ?>
@@ -125,5 +117,6 @@
             
             
         </div>
+</div>
 </body>
 </html>

@@ -17,7 +17,7 @@
 
 ?> 
 <?php
-    $s1 = "select * from users where role='Teacher' and status=1";
+    $s1 = "select * from users where role='Teacher' and status=1 and dept_id=$dept";
     $q1 = mysqli_query($conn, $s1)
 ?>
 <?php
@@ -29,7 +29,7 @@
     $q3 = mysqli_query($conn, $s3)
 ?>
 <?php
-    $s4 = "select * from section where dept_id=$dept";
+    $s4 = "select DISTINCT * from section where dept_id=$dept";
     $q4 = mysqli_query($conn, $s4)
 ?>
 <?php
