@@ -65,6 +65,8 @@
             if($is_approved){
                 $_SESSION['user_name'] = $row['name'];
                 $_SESSION['user_role'] = $row['role'];
+                $_SESSION['user_dept'] = $row['dept_id'];
+                $_SESSION['user_id'] = $row['id'];
                 if($row['role']=='Teacher'){
                     header('Location: dashboard_teach.php');
                 }

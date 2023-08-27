@@ -57,7 +57,7 @@
         $pass = $_POST['password']; 
         $password = md5($_POST['password']); 
         $s = "Select * from admin where email='".$email."' 
-              AND password='".$password."' or password='".$pass."'";   
+              AND (password='".$password."' or password='".$pass."')";   
         $q = mysqli_query($conn, $s);
         $row = mysqli_fetch_assoc($q);
 

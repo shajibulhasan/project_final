@@ -4,13 +4,22 @@
 
 <?php $dept = $_SESSION['user_dept']; ?>
 <?php $name = $_SESSION['user_name']; ?>
+<?php $id = $_SESSION['user_id']; ?>
+
+<?php
+  $idea_id = $_REQUEST['idea_id'];
+  $s= "select * from project_idea where id=$idea_id";
+  $q = mysqli_query($conn, $s);
+  $r = mysqli_fetch_assoc($q);
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enrollment Studnt</title>
+    <title>Create Project Idea</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -18,8 +27,8 @@
 </head>
 <body>
     <div>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <a class="navbar-brand" href="dashboard_dept.php"><img src="img/puc.png" alt="logo" style="width:50px;"></a>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" href="dashboard.php"><img src="img/puc.png" alt="logo" style="width:50px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -49,7 +58,33 @@
                 </ul>
             </div>
         </nav>
-
+        <div class="m-5">
+            <h2>Edit Project Idea</h2>
+                <form action="" method="post">    
+                    <div class="form-group">
+                        <label for="">Project Idea</label>
+                        <textarea class="form-control" value="<?php echo $r['idea'];?>" name="idea" rows="5" id="comment"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Group Number</label>
+                        <input type="number" value="<?php echo $r['group_number'] ?>" name="number" class="form-control">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary mt-2" name="submitBtn">Submit</button>
+                    </div>
+                </form>
+        </div>
     </div>
 </body>
 </html>
+<?php 
+    if(isset($_POST['submitBtn'])){
+        $idea = $_POST['idea'];
+        $number = $_POST['number'];        
+        $str = "update project_idea set group_number=  '".$number."', idea='".$idea."', status=0";
+
+        if(mysqli_query($conn, $str)){
+            echo 'Successfully Inserted';
+        }
+    }
+?>
