@@ -105,6 +105,7 @@
                 <thead>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -113,8 +114,9 @@
                             <tr>
                                 <td><?php echo $r['name'] ?></td>
                                 <td><?php echo $r['email'] ?></td>
+                                <td><?php echo $r['role'] ?></td>
                                 <td>
-                                    <a href="approve.php?userid=<?php echo $r['id'] ?>">Approve</a>
+                                    <a href="approve.php?userid=<?php echo $r['id'] ?>">Approved</a>
                                 </td>
                             </tr>
                         <?php }

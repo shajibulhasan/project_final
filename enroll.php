@@ -104,10 +104,10 @@
                     $session = $_GET['session'];
                     $semester = $_GET['semester'];
 
-                    $s = "Select DISTINCT oc.id as id, c.course_title as course_title from offer_course as oc INNER JOIN course as c ON oc.course_id = c.id where semester = '$semester' and session_id = $session";
+                    $s = "Select DISTINCT oc.id as id, c.course_title as course_title from offer_course as oc INNER JOIN course as c ON oc.course_id = c.id where semester = '$semester' and session_id = $session and dept_id=$dept";
                     $q = mysqli_query($conn, $s);
 
-                    $s2 = "select DISTINCT * from section where dept_id = $dept and session_id = $session and semester = '$semester'";
+                    $s2 = "select DISTINCT * from section where dept_id = $dept and session_id = $session";
                     $q2 = mysqli_query($conn, $s2);
                     ?>
                     <form action="" method="post">

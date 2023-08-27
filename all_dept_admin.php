@@ -4,7 +4,7 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    $s = "select a.id as id, a.name as name, d.name as dept from admin as a INNER JOIN department as d ON a.role='Department Admin' and a.dept_id=d.id";
+    $s = "select a.id as id, a.email as email, a.name as name, d.name as dept from admin as a INNER JOIN department as d ON a.role='Department Admin' and a.dept_id=d.id";
     $q = mysqli_query($conn, $s);
 ?>
 <!DOCTYPE html>
@@ -60,6 +60,7 @@
             <table class="table table-striped">
                 <thead>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Department</th>
                     <th>Action</th>
                 </thead>
@@ -68,6 +69,7 @@
                         while($r = mysqli_fetch_array($q)){ ?>
                             <tr>
                                 <td><?php echo $r['name'] ?></td>
+                                <td><?php echo $r['email'] ?></td>
                                 <td><?php echo $r['dept'] ?></td>
                                 <td>
                                     <a href="remove_dept_admin.php?rid=<?php echo $r['id'] ?>">Remove Admin</a>
