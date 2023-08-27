@@ -2,12 +2,17 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
+
 ?> 
 <?php 
     $ass_id = $_REQUEST['ass_id'];
@@ -16,11 +21,11 @@
     $r = mysqli_fetch_assoc($q);
 ?>
 <?php
-    $s1 = "select * from users where role='Teacher'";
+    $s1 = "select * from users where role='Teacher' and status=1";
     $q1 = mysqli_query($conn, $s1)
 ?>
 <?php
-    $s2 = "select * from department";
+    $s2 = "select * from department where id=$dept";
     $q2 = mysqli_query($conn, $s2)
 ?>
 <?php
@@ -28,7 +33,7 @@
     $q3 = mysqli_query($conn, $s3)
 ?>
 <?php
-    $s4 = "select * from section";
+    $s4 = "select * from section where dept_id=$dept";
     $q4 = mysqli_query($conn, $s4)
 ?>
 <?php
