@@ -95,3 +95,18 @@ CREATE TABLE admin(
     FOREIGN KEY(course_id) REFERENCES course(id),
      FOREIGN KEY(user_id) REFERENCES users(id)
     );  
+12. number_distribution table
+CREATE TABLE number_distribution(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    student_id int,
+    course_id int,
+    session_id int,
+    ct int,
+    mid int,
+    assignment int,
+    attendance int,
+    final int,
+    FOREIGN KEY(student_id) REFERENCES users(id),
+    FOREIGN KEY(course_id) REFERENCES course(id),
+    FOREIGN KEY(session_id) REFERENCES session(id)
+    );

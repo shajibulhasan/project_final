@@ -81,7 +81,7 @@
     if(isset($_POST['submitBtn'])){
         $idea = $_POST['idea'];
         $number = $_POST['number'];        
-        $str = "update project_idea set group_number=  '".$number."', idea='".$idea."'";
+        $str = "update project_idea set group_number=  '".$number."', idea='".$idea."', status=0";
 
         if(mysqli_query($conn, $str)){
             echo 'Successfully Inserted';
