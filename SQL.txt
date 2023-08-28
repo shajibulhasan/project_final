@@ -32,13 +32,6 @@ CREATE TABLE session(
     id int PRIMARY KEY AUTO_INCREMENT,
     session varchar(70)
     );
-6. batch table
-CREATE TABLE batch(
-    id int PRIMARY KEY AUTO_INCREMENT,
-    batch int,
-    dept_id int,
-    FOREIGN KEY(dept_id) REFERENCES department(id)
-    );
 7. section table
 CREATE TABLE section(
     id int PRIMARY KEY AUTO_INCREMENT,
