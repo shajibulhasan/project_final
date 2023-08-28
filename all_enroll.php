@@ -113,9 +113,7 @@
                     </table>
 
                 <?php }
-            ?>
-            
-            
+            ?>    
         </div>
 </div>
 </body>
