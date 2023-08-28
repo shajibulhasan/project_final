@@ -17,8 +17,8 @@
 
 ?>
 <?php 
-    $s1 = "select * from session";
-    $q1 = mysqli_query($conn, $s1)
+    $s = "select * from section";
+    $q = mysqli_query($conn, $s)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,15 +66,6 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Batch
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create_batch.php">Create Batch</a>
-                            <a class="dropdown-item" href="all_batch.php">All Batch</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Section
                         </a>
                         <div class="dropdown-menu">
@@ -107,44 +98,6 @@
             </div>
         </nav>
         <div class="m-5">
-            <h2>Search Section</h2>
-            <form action="" method="get">
-                <div class="form-group d-block float-left mx-3">
-                    <label for="">Session</label>
-                    <select name="session" id="" class="form-control">
-                        <option value="">Select Session</option>
-                        <?php 
-                            while($row1 = mysqli_fetch_assoc($q1)){ ?>
-                                <option value="<?php echo $row1['id'] ?>"><?php echo $row1['session'] ?></option>
-                            <?php  }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group d-block float-left mx-3">
-                    <label for="">Semester</label>
-                    <select name="semester" id="" class="form-control">
-                        <option value="">Select Semester</option>
-                        <option value="1st">1st</option>
-                        <option value="2nd">2nd</option>
-                        <option value="3rd">3rd</option>
-                        <option value="4th">4th</option>
-                        <option value="5th">5th</option>                    
-                        <option value="6th">6th</option>                    
-                        <option value="7th">7th</option>                    
-                        <option value="8th">8th</option>                
-                    </select>
-                </div>
-                <div class="form-group mx-3">
-                    <button type="submit" class="btn btn-primary" style="margin-top: 32px;" name="btnSearch">Search</button>
-                </div>
-            </form>
-            <?php
-                if(isset($_GET['btnSearch'])){
-                    $session = $_GET['session'];
-                    $semester = $_GET['semester'];
-                    $s = "SELECT * FROM section WHERE semester = '$semester' AND session_id=$session AND dept_id=$dept";
-                    $q = mysqli_query($conn, $s);
-                    ?>
                     <h2 class="d-block">All Section</h2>
                     <table class="table table-striped">
                         <thead>
@@ -189,9 +142,6 @@
                         ?>
                     </tbody>
                     </table>
-                <?php
-                }
-            ?>
         </div>
     </div>
 </body>

@@ -71,15 +71,6 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Batch
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create_batch.php">Create Batch</a>
-                            <a class="dropdown-item" href="all_batch.php">All Batch</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Section
                         </a>
                         <div class="dropdown-menu">
@@ -113,32 +104,7 @@
         </nav>
         <div class="m-5">
         <h2>Edit Section</h2>
-        <form action="" method="post">
-            <div class="form-group">
-                <label for="">Session</label>
-                <select name="session" id="" class="form-control">
-                    <option value="">Select Session</option>
-                    <?php 
-                        while($row1 = mysqli_fetch_assoc($q1)){ ?>
-                            <option value="<?php echo $row1['id'] ?>"><?php echo $row1['session'] ?></option>
-                        <?php  }
-                    ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="">Semester</label>
-                <select name="semester" id="" class="form-control">
-                <option value="">Select Semester</option>
-                    <option value="1st">1st</option>
-                    <option value="2nd">2nd</option>
-                    <option value="3rd">3rd</option>
-                    <option value="4th">4th</option>
-                    <option value="5th">5th</option>                    
-                    <option value="6th">6th</option>                    
-                    <option value="7th">7th</option>                    
-                    <option value="8th">8th</option>                
-                </select>
-            </div>                   
+        <form action="" method="post">                  
             <div class="form-group">
                 <label for="">Section</label>
                 <input type="text" value="<?php echo $r['section'] ?>" class="form-control" name="section" id="">
@@ -153,10 +119,8 @@
 </html>
 <?php 
     if(isset($_POST['submitBtn'])){
-        $session = $_POST['session'];
-        $semester = $_POST['semester'];
         $sectionName = $_POST['section'];
-        $str = "update section set session_id='".$session."', semester='".$semester."', section='".$sectionName."' where id= $section_id";
+        $str = "update section set section='".$sectionName."' where id= $section_id";
         if(mysqli_query($conn, $str)){
            header('Location: all_section.php');
         }

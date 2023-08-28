@@ -1,5 +1,5 @@
 1. Database Create
-CREATE DATABASE project;
+CREATE DATABASE project_final;
 
 2. users table
 CREATE TABLE users(
@@ -32,22 +32,10 @@ CREATE TABLE session(
     id int PRIMARY KEY AUTO_INCREMENT,
     session varchar(70)
     );
-6. batch table
-CREATE TABLE batch(
-    id int PRIMARY KEY AUTO_INCREMENT,
-    batch int,
-    dept_id int,
-    FOREIGN KEY(dept_id) REFERENCES department(id)
-    );
 7. section table
 CREATE TABLE section(
     id int PRIMARY KEY AUTO_INCREMENT,
-    section varchar(20),
-    session_id int,
-    dept_id int,
-    semester varchar(20),
-    FOREIGN KEY (session_id) REFERENCES session(id),
-    FOREIGN KEY (dept_id) REFERENCES department(id)
+    section varchar(20)
     );
 8. offer_course table
 CREATE TABLE offer_course(
@@ -81,19 +69,24 @@ CREATE TABLE admin(
     email varchar(80),
     password varchar(200),
     dept_id int,
-    role varchar(70)
+    role varchar(70),
+    FOREIGN KEY(dept_id) REFERENCES department(id)
     );
+
+INSERT INTO `admin` (`id`, `name`, `email`, `password`, `dept_id`, `role`) VALUES ('1', 'Shajibul Hasasn Soaib', 'shajibulhasan.puc@gmail.com', 'shajibul', NULL, 'Super Admin');
+
  11. project_idea table 
  CREATE TABLE project_idea(
     id int PRIMARY KEY AUTO_INCREMENT,
-    gorup_number int,
+    group_number int,
     idea varchar(2000),
     course_id int,
     session_id int,
     user_id int,
+    status boolean DEFAULT false,
     FOREIGN KEY(session_id) REFERENCES session(id),
     FOREIGN KEY(course_id) REFERENCES course(id),
-     FOREIGN KEY(user_id) REFERENCES users(id)
+    FOREIGN KEY(user_id) REFERENCES users(id)
     );  
 12. number_distribution table
 CREATE TABLE number_distribution(
@@ -109,4 +102,19 @@ CREATE TABLE number_distribution(
     FOREIGN KEY(student_id) REFERENCES users(id),
     FOREIGN KEY(course_id) REFERENCES course(id),
     FOREIGN KEY(session_id) REFERENCES session(id)
+    );
+13. enroll table
+CREATE TABLE enroll(
+    id int PRIMARY KEY AUTO_INCREMENT,
+    course_id int,
+    section_id int,
+    dept_id int,
+    semester varchar(40),
+    session_id int,
+    types varchar(70),
+    user_id int,
+    FOREIGN KEY(course_id) REFERENCES course(id),
+    FOREIGN KEY(section_id) REFERENCES section(id),
+    FOREIGN KEY(session_id) REFERENCES session(id),
+    FOREIGN KEY(user_id) REFERENCES users(id)
     );

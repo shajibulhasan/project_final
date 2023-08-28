@@ -1,6 +1,8 @@
 <?php include 'connection.php' ?>
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
+<?php $dept = $_SESSION['user_dept']; ?>
+<?php $name = $_SESSION['user_name']; ?>
 <?php
     if($_SESSION['user_role']=='Student'){
         header('location: dashboard.php');
@@ -8,9 +10,12 @@
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
 ?> 
 <?php 
-    $s = "select * from users where status=0";
+    $s = "select * from users where status=0 and dept_id=$dept";
     $q = mysqli_query($conn, $s);
 ?>
 <!DOCTYPE html>
@@ -59,15 +64,6 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Batch
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create_batch.php">Create Batch</a>
-                            <a class="dropdown-item" href="all_batch.php">All Batch</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Section
                         </a>
                         <div class="dropdown-menu">
@@ -105,6 +101,7 @@
                 <thead>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -113,8 +110,9 @@
                             <tr>
                                 <td><?php echo $r['name'] ?></td>
                                 <td><?php echo $r['email'] ?></td>
+                                <td><?php echo $r['role'] ?></td>
                                 <td>
-                                    <a href="approve.php?userid=<?php echo $r['id'] ?>">Approve</a>
+                                    <a href="approve.php?userid=<?php echo $r['id'] ?>">Approved</a>
                                 </td>
                             </tr>
                         <?php }

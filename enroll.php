@@ -104,10 +104,10 @@
                     $session = $_GET['session'];
                     $semester = $_GET['semester'];
 
-                    $s = "Select DISTINCT oc.id as id, c.course_title as course_title from offer_course as oc INNER JOIN course as c ON oc.course_id = c.id where semester = '$semester' and session_id = $session";
+                    $s = "Select oc.id as id, c.id as cid, c.course_title as course_title from offer_course as oc INNER JOIN course as c ON oc.course_id = c.id where semester = '$semester' and session_id = $session and dept_id=$dept";
                     $q = mysqli_query($conn, $s);
 
-                    $s2 = "select DISTINCT * from section where dept_id = $dept and session_id = $session and semester = '$semester'";
+                    $s2 = "select * from section";
                     $q2 = mysqli_query($conn, $s2);
                     ?>
                     <form action="" method="post">
@@ -116,7 +116,7 @@
                         while($row = mysqli_fetch_assoc($q)){ ?>
                         <div class="form-check">
                             <label class="form-check-label" for="check1">
-                                <input type="checkbox" class="form-check-input" name="course[]" value="<?php echo $row['id'] ?>" ><?php echo $row['course_title'] ?>
+                                <input type="checkbox" class="form-check-input" name="course[]" value="<?php echo $row['cid'] ?>" ><?php echo $row['course_title'] ?>
                             </label>
                         </div>
                     <?php  }

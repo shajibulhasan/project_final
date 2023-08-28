@@ -29,7 +29,7 @@
     $q3 = mysqli_query($conn, $s3)
 ?>
 <?php
-    $s4 = "select DISTINCT * from section where dept_id=$dept";
+    $s4 = "select * from section";
     $q4 = mysqli_query($conn, $s4)
 ?>
 <?php
@@ -78,15 +78,6 @@
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="create_session.php">Create Session</a>
                             <a class="dropdown-item" href="all_session.php">All Session</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            Batch
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="create_batch.php">Create Batch</a>
-                            <a class="dropdown-item" href="all_batch.php">All Batch</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
