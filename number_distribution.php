@@ -106,7 +106,7 @@ $q3= mysqli_query($conn,$s3);
                 $session = $_GET['session'];
                 $course =  $_GET['course'];
                 $s_id = $_GET['num'];
-                $s="select u.name as name from enroll as e INNER JOIN users as u on e.user_id = u.id where e.session_id= $session and e.course_id = $course and e.user_id=$s_id";
+                $s="select u.name as name, e.user_id as u_id from enroll as e INNER JOIN users as u on e.user_id = u.id where e.session_id= $session and e.course_id = $course and e.user_id=$s_id";
                 $q= mysqli_query($conn, $s);
                 $r=mysqli_fetch_array($q);
                 if($r['name']){?>
@@ -126,7 +126,7 @@ $q3= mysqli_query($conn,$s3);
                             <tbody>                            
                                 <tr>
                                     <td><?php echo $r['name']; ?></td>
-                                    <td><?php echo $s_id; ?></td>
+                                    <td><?php echo $r['u_id'] ?></td>
                                     <td><input type="number" name="ct"> </td>
                                     <td><input type="number" name="mid"> </td>
                                     <td><input type="number" name="ass"> </td>

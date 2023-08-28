@@ -1,5 +1,5 @@
 1. Database Create
-CREATE DATABASE project;
+CREATE DATABASE project_final;
 
 2. users table
 CREATE TABLE users(
@@ -35,12 +35,7 @@ CREATE TABLE session(
 7. section table
 CREATE TABLE section(
     id int PRIMARY KEY AUTO_INCREMENT,
-    section varchar(20),
-    session_id int,
-    dept_id int,
-    semester varchar(20),
-    FOREIGN KEY (session_id) REFERENCES session(id),
-    FOREIGN KEY (dept_id) REFERENCES department(id)
+    section varchar(20)
     );
 8. offer_course table
 CREATE TABLE offer_course(
@@ -74,19 +69,24 @@ CREATE TABLE admin(
     email varchar(80),
     password varchar(200),
     dept_id int,
-    role varchar(70)
+    role varchar(70),
+    FOREIGN KEY(dept_id) REFERENCES department(id)
     );
+
+INSERT INTO `admin` (`id`, `name`, `email`, `password`, `dept_id`, `role`) VALUES ('1', 'Shajibul Hasasn Soaib', 'shajibulhasan.puc@gmail.com', 'shajibul', NULL, 'Super Admin');
+
  11. project_idea table 
  CREATE TABLE project_idea(
     id int PRIMARY KEY AUTO_INCREMENT,
-    gorup_number int,
+    group_number int,
     idea varchar(2000),
     course_id int,
     session_id int,
     user_id int,
+    status boolean DEFAULT false,
     FOREIGN KEY(session_id) REFERENCES session(id),
     FOREIGN KEY(course_id) REFERENCES course(id),
-     FOREIGN KEY(user_id) REFERENCES users(id)
+    FOREIGN KEY(user_id) REFERENCES users(id)
     );  
 12. number_distribution table
 CREATE TABLE number_distribution(

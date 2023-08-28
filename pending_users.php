@@ -1,6 +1,8 @@
 <?php include 'connection.php' ?>
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
+<?php $dept = $_SESSION['user_dept']; ?>
+<?php $name = $_SESSION['user_name']; ?>
 <?php
     if($_SESSION['user_role']=='Student'){
         header('location: dashboard.php');
@@ -8,9 +10,12 @@
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
 ?> 
 <?php 
-    $s = "select * from users where status=0";
+    $s = "select * from users where status=0 and dept_id=$dept";
     $q = mysqli_query($conn, $s);
 ?>
 <!DOCTYPE html>

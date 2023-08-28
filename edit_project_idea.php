@@ -84,7 +84,8 @@
         $str = "update project_idea set group_number=  '".$number."', idea='".$idea."', status=0";
 
         if(mysqli_query($conn, $str)){
-            echo 'Successfully Inserted';
+            //echo 'Successfully Inserted';
+            header('Location: status_project_idea.php');
         }
     }
 ?>

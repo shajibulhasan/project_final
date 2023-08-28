@@ -29,7 +29,7 @@
     $q3 = mysqli_query($conn, $s3)
 ?>
 <?php
-    $s4 = "select DISTINCT * from section where dept_id=$dept";
+    $s4 = "select * from section";
     $q4 = mysqli_query($conn, $s4)
 ?>
 <?php

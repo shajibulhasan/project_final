@@ -60,7 +60,8 @@
                 </ul>
             </div>
         </nav>
-        <h2 class="mt-4">Edit Number Distribution</h2>
+        <div class="m-5">
+            <h2 class="mt-4">Edit Number Distribution</h2>
                 <form action="" method="post">
                     <div>
                         <table class="table table-striped">
@@ -86,6 +87,7 @@
                         <button type="submit" class="btn btn-primary mt-2" name="submitBtn">Update</button>
                     </div>
                </form>
+        </div>
     </div>
 </body>
 </html>
@@ -99,7 +101,8 @@
         $str = "update number_distribution set ct='".$ct."', mid='".$mid."', assignment='".$ass."', attendance='".$att."', final='".$final."'";
 
         if(mysqli_query($conn, $str)){
-            echo 'Successfully Inserted';
+           echo 'Successfully Update';
+           
         }
     }
 ?>
