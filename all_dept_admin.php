@@ -4,6 +4,17 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Teacher'){
+        header('location: dashboard_teach.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
+<?php
     $s = "select a.id as id, a.email as email, a.name as name, d.name as dept from admin as a INNER JOIN department as d ON a.role='Department Admin' and a.dept_id=d.id";
     $q = mysqli_query($conn, $s);
 ?>

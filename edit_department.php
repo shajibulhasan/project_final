@@ -1,4 +1,17 @@
 <?php include 'connection.php'; ?>
+<?php session_start(); ?>
+<?php include 'isLoggedin.php'; ?>
+<?php
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Teacher'){
+        header('location: dashboard_teach.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
 <?php 
     $department_id = $_REQUEST['dept_id'];
     $s = "select * from department where id=$department_id";
