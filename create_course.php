@@ -4,13 +4,24 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
+    $name = $_SESSION['user_name'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
-?> 
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
+
+?>
+<?php 
+    $s = "SELECT * FROM department WHERE id=$dept";
+    $q = mysqli_query($conn, $s);
+    $row = mysqli_fetch_assoc($q);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +35,7 @@
 </head>
 <body>
     <div>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <a class="navbar-brand" href="dashboard_dept.php"><img src="img/puc.png" alt="logo" style="width:50px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -89,7 +100,10 @@
             </div>
         </nav>
         <div class="m-5">
-            <h2>Create Course</h2>
+            <h2>Name: <?php echo $name ?></h2>
+            <h4>Department: <?php echo $row['name'] ?> </h4> 
+            <br><br> 
+            <h4>Create Course</h4>
             <form action="" method="post">
                 <div class="form-group">
                     <label for="title">Course Title:</label>

@@ -4,12 +4,23 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
-    }
+    $dept = $_SESSION['user_dept'];
+    $name = $_SESSION['user_name'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }      
+
+?>
+<?php 
+    $sp = "SELECT * FROM department WHERE id=$dept";
+    $qp = mysqli_query($conn, $sp);
+    $rp = mysqli_fetch_assoc($qp);
 ?>
 <?php
     $s = "select * from session";
@@ -93,7 +104,10 @@
             </div>
         </nav>
         <div class="m-5">
-            <h2>All Session</h2>
+            <h2>Name: <?php echo $name ?></h2>
+            <h4>Department: <?php echo $rp['name'] ?> </h4> 
+            <br><br> 
+            <h4>All Session</h4>
             <table class="table table-striped">
                 <thead>
                     <th>Id</th>

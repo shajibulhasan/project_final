@@ -12,6 +12,8 @@
         header('location: dashboard_super.php');
     }
 ?>
+<?php $role = $_SESSION['user_role']; ?>
+<?php $name = $_SESSION['user_name']; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,6 +91,10 @@
                 </ul>
             </div>
         </nav>
+        <div class="m-5">
+            <h2><?php echo $role ?> Dashboard</h2>
+            <h4>Welcome <?php echo $name ?></h4>
+        </div>
     </div>
 </body>
 </html>

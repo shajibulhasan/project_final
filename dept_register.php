@@ -5,6 +5,7 @@
 <?php include 'isLoggedin.php'; ?>
 <?php
     $dept = $_SESSION['user_dept'];
+    $name = $_SESSION['user_name'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
@@ -19,6 +20,7 @@
 <?php 
     $s = "SELECT * FROM department WHERE id=$dept";
     $q = mysqli_query($conn, $s);
+    $row = mysqli_fetch_assoc($q);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,22 +100,14 @@
             </div>
         </nav>
         <div class="m-5">
-            <h2>Register</h2>
+            <h2>Name: <?php echo $name ?></h2>
+            <h4>Department: <?php echo $row['name'] ?> </h4> 
+            <br><br> 
+            <h4>Register</h4>
             <form action="" method="post">
                 <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" name="name" class="form-control" id="">
-                </div>
-                <div class="form-group">
-                    <label for="">Department</label>
-                    <select name="department" id="" class="form-control">
-                        <option value="">Select Department</option>
-                        <?php 
-                            while($row = mysqli_fetch_assoc($q)){ ?>
-                                <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
-                            <?php  }
-                        ?>
-                    </select>
                 </div>
                 <div class="form-group">
                     <label for="">Email</label>
@@ -159,7 +153,6 @@
         $password = $_POST['password'];
         $confirm = $_POST['cnf_password'];
         $role = $_POST['role'];
-        $dept = $_POST['department'];
         $status = 1;
         if($password == $confirm){
             $password = md5($password);
