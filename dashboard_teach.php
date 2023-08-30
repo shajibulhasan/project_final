@@ -1,6 +1,19 @@
 <?php include 'connection.php' ?>
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
+<?php
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
+<?php $role = $_SESSION['user_role']; ?>
+<?php $name = $_SESSION['user_name']; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,6 +62,10 @@
                 </ul>
             </div>
         </nav>
+        <div class="m-5">
+            <h2><?php echo $role ?> Dashboard</h2>
+            <h4>Welcome <?php echo $name ?></h4>
+        </div>
     </div>
 </body>
 </html>

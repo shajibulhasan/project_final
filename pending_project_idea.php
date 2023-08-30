@@ -5,6 +5,17 @@
 <?php $name = $_SESSION['user_name']; ?>
 <?php $dept = $_SESSION['user_dept']; ?>
 <?php
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
+<?php
     $s1 = "select * from session";
     $q1 = mysqli_query($conn, $s1);
 ?>
@@ -66,9 +77,10 @@
             </div>
         </nav>
         <div class="m-5">
-        <div class="m-5">
+        <div>
             <h2>User Name: <?php echo $name ?> </h2>
             <h5>Department: <?php echo $r2['name'] ?> </h5>
+            <br><br>
             <form action="" method="get">
                 <div class="form-group d-block float-left mx-2">
                     <label for="">Session</label>
@@ -102,7 +114,7 @@
                     $course =  $_GET['course'];
                     $s = "select pi.id as id, c.course_title as course, pi.idea as idea, pi.group_number as gnum from project_idea as pi INNER JOIN course as c ON pi.course_id=c.id where pi.session_id=$session and pi.course_id = $course and status=0";
                     $q = mysqli_query($conn, $s); ?>
-                    <h2 class="m-4">Pending Project Idea</h2>
+                    <h4 class="m-4">Pending Project Idea</h4>
                     <table class="table table-striped">
                         <thead>
                             <th>ID</th>
@@ -119,7 +131,7 @@
                                 <td><?php echo $n++; ?></td>
                                 <td><?php echo $r['course']; ?></td>
                                 <td><?php echo $r['gnum']; ?></td>
-                                <td><?php echo $r['idea']; ?></td>
+                                <td class="text-justify"><?php echo $r['idea']; ?></td>
                                 <td>
                                     <a href="approved_idea.php?project_id=<?php echo $r['id']; ?>">Approved</a>
                                 </td>
