@@ -5,6 +5,17 @@
 <?php $name = $_SESSION['user_name']; ?>
 <?php $dept = $_SESSION['user_dept']; ?>
 <?php
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
+<?php
     $s1 = "select * from session";
     $q1 = mysqli_query($conn, $s1);
 ?>
@@ -66,9 +77,10 @@
             </div>
         </nav>
         <div class="m-5">
-        <div class="m-5">
+        <div>
             <h2>User Name: <?php echo $name ?> </h2>
             <h5>Department: <?php echo $r2['name'] ?> </h5>
+            <br><br>
             <form action="" method="get">
                 <div class="form-group d-block float-left mx-2">
                     <label for="">Session</label>
