@@ -5,6 +5,7 @@
 <?php include 'isLoggedin.php'; ?>
 <?php
     $dept = $_SESSION['user_dept'];
+    $name = $_SESSION['user_name'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
@@ -15,6 +16,11 @@
         header('location: dashboard_super.php');
     }      
 
+?>
+<?php 
+    $sp = "SELECT * FROM department WHERE id=$dept";
+    $qp = mysqli_query($conn, $sp);
+    $rp = mysqli_fetch_assoc($qp);
 ?>
 <?php 
     $s = "select * from section";
@@ -98,7 +104,10 @@
             </div>
         </nav>
         <div class="m-5">
-                    <h2 class="d-block">All Section</h2>
+            <h2>Name: <?php echo $name ?></h2>
+            <h4>Department: <?php echo $rp['name'] ?> </h4> 
+            <br><br> 
+                    <h4 class="d-block">All Section</h4>
                     <table class="table table-striped">
                         <thead>
                             <th>ID</th>

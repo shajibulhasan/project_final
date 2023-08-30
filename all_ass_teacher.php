@@ -5,6 +5,7 @@
 <?php include 'isLoggedin.php'; ?>
 <?php
     $dept = $_SESSION['user_dept'];
+    $name = $_SESSION['user_name'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
@@ -15,7 +16,12 @@
         header('location: dashboard_super.php');
     }      
 
-?> 
+?>
+<?php 
+    $sp = "SELECT * FROM department WHERE id=$dept";
+    $qp = mysqli_query($conn, $sp);
+    $rp = mysqli_fetch_assoc($qp);
+?>
 <?php
     $s = "select at.id as id, at.semester as semester, at.section as section, d.name as name, c.course_title as course, s.session as session, u.name as tname from assign_teacher as at INNER JOIN department as d On at.dept_id=d.id INNER JOIN course as c ON at.course=c.id INNER JOIN session as s ON at.session_id=s.id INNER JOIN users as u ON at.teacher_id=u.id where at.dept_id=$dept";
     $q = mysqli_query($conn, $s);
@@ -98,7 +104,10 @@
             </div>
         </nav>
         <div class="m-5">
-            <h2>All Assign Teacher</h2>
+        <h2>Name: <?php echo $name ?></h2>
+        <h4>Department: <?php echo $rp['name'] ?> </h4> 
+        <br><br> 
+        <h4>All Assign Teacher</h4>
             <table class="table table-striped">
                 <thead>
                     <th>ID</th>

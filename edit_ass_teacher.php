@@ -1,8 +1,11 @@
-<?php include 'connection.php'; ?>
+<?php
+    include 'connection.php';
+?>
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
     $dept = $_SESSION['user_dept'];
+    $name = $_SESSION['user_name'];
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
@@ -13,7 +16,12 @@
         header('location: dashboard_super.php');
     }      
 
-?> 
+?>
+<?php 
+    $sp = "SELECT * FROM department WHERE id=$dept";
+    $qp = mysqli_query($conn, $sp);
+    $rp = mysqli_fetch_assoc($qp);
+?>
 <?php 
     $ass_id = $_REQUEST['ass_id'];
 
@@ -116,7 +124,10 @@
             </div>
         </nav>
         <div class="m-5">
-            <h2>Edit Assign Teacher</h2>
+        <h2>Name: <?php echo $name ?></h2>
+        <h4>Department: <?php echo $rp['name'] ?> </h4> 
+        <br><br> 
+        <h4>Edit Assign Teacher</h4>
             <form action="" method="post">
                 <div class="form-group">
                     <label for="">Teacher:</label>

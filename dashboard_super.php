@@ -1,6 +1,19 @@
 <?php include 'connection.php' ?>
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
+<?php $role = $_SESSION['user_role']; ?>
+<?php $name = $_SESSION['user_name']; ?>
+<?php
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
+    if($_SESSION['user_role']=='Teacher'){
+        header('location: dashboard_teach.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +23,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Super Admin Dashboard</title>
 </head>
 <body>
@@ -49,6 +63,11 @@
                 </ul>
             </div>
         </nav>
+        <div class="m-5">
+            <h2><?php echo $role ?> Dashboard</h2>
+            <h4>Welcome <?php echo $name ?></h4>
+            
+        </div>
     </div>
 </body>
 </html>

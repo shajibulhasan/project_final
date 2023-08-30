@@ -5,6 +5,17 @@
 <?php $dept = $_SESSION['user_dept']; ?>
 <?php $name = $_SESSION['user_name']; ?>
 <?php $id = $_SESSION['user_id']; ?>
+<?php
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
+    if($_SESSION['user_role']=='Teacher'){
+        header('location: dashboard_teach.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
 <?php 
 $s2="select * from department where id= $dept";
 $q2= mysqli_query($conn,$s2);

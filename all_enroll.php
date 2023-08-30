@@ -4,7 +4,17 @@
 <?php $dept = $_SESSION['user_dept']; ?>
 <?php $id = $_SESSION['user_id']; ?>
 <?php $name = $_SESSION['user_name']; ?>
-
+<?php
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
+    if($_SESSION['user_role']=='Teacher'){
+        header('location: dashboard_teach.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
 <?php
     $s1 = "Select * from department where id=$dept";
     $q1 = mysqli_query($conn, $s1);
@@ -64,6 +74,7 @@
         <div class="m-5">
             <h2>User name: <?php echo $name ?> </h2>
             <h5>Department: <?php echo $r1['name'] ?> </h5>
+            <br><br>
             <form action="" method="get">
                 <div class="form-group d-block float-left mx-3">
                     <label for="">Session</label>
@@ -86,7 +97,7 @@
                     $s = "select e.id as id, s.section as section, c.course_title as course, e.semester as semester, e.types as types from enroll as e INNER JOIN section as s ON e.section_id=s.id INNER JOIN course as c ON e.course_id=c.id where e.session_id = $session AND e.dept_id = $dept AND e.user_id = $id";
                     $q = mysqli_query($conn, $s);
                     ?>
-                    
+                    <h4>All Enroll Course</h4>
                     <table class="table table-striped">
                         <thead>
                             <th>ID</th>

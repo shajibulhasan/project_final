@@ -4,11 +4,14 @@
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
 <?php
+    if($_SESSION['user_role']=='Student'){
+        header('location: dashboard.php');
+    }
     if($_SESSION['user_role']=='Teacher'){
         header('location: dashboard_teach.php');
     }
-    if($_SESSION['user_role']=='Student'){
-        header('location: dashboard.php');
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
     }
 ?>
 <?php 
