@@ -1,11 +1,25 @@
 <?php include 'connection.php' ?>
 <?php session_start(); ?>
 <?php include 'isLoggedin.php'; ?>
-
 <?php $dept = $_SESSION['user_dept']; ?>
-<?php $name = $_SESSION['user_name']; ?>
 <?php $id = $_SESSION['user_id']; ?>
-
+<?php $name = $_SESSION['user_name']; ?>
+<?php
+    if($_SESSION['user_role']=='Super Admin'){
+        header('location: dashboard_super.php');
+    }
+    if($_SESSION['user_role']=='Teacher'){
+        header('location: dashboard_teach.php');
+    }
+    if($_SESSION['user_role']=='Department Admin'){
+        header('location: dashboard_dept.php');
+    }
+?>
+<?php 
+    $sp = "SELECT * FROM department WHERE id=$dept";
+    $qp = mysqli_query($conn, $sp);
+    $rp = mysqli_fetch_assoc($qp);
+?>
 <?php 
 $s1= "select * from session";
 $q1 = mysqli_query($conn, $s1);
@@ -58,6 +72,10 @@ $q1 = mysqli_query($conn, $s1);
 
 
         <div class="m-5">
+        
+        <h2>Name: <?php echo $name ?></h2>
+        <h4>Department: <?php echo $rp['name'] ?> </h4> 
+        <br><br>
         <form action="" method="get">
             <div class="form-row">
                     <div class="col-md-3">
@@ -87,7 +105,7 @@ $q1 = mysqli_query($conn, $s1);
                 $s = "select c.id as id, c.course_title as course_title from enroll as e INNER JOIN course as c on e.course_id = c.id  where user_id=$id and session_id = $session";
                 $q=mysqli_query($conn,$s); ?>
 
-                <h2>Create Project Idea</h2>
+                <h4>Create Project Idea</h4>
                 <form action="" method="post">
                     <div class="form-group">
                         <label for="">Course:</label>
